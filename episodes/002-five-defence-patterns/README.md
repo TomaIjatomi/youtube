@@ -7,7 +7,13 @@ Five defensive patterns against the attacks from [Episode 1](https://youtu.be/R7
 
 ## Demo Recording
 
-▶️ **[Watch the demo on YouTube](https://youtu.be/RkCOOucIbeE)
+Watch the demo on YouTube
+
+<p align="left">
+  <a href="https://youtu.be/RkCOOucIbeE">
+    <img src="https://github.com/user-attachments/assets/c14012aa-5802-4617-84b9-66abccd340ae" alt="Watch the video" width="500" />
+  </a>
+</p>
 
 ---
 
@@ -62,7 +68,7 @@ fetcher (deterministic)  →  sanitiser (Gemini 3.1 Flash Lite)  →  reasoner (
                                 writes: clean_content                 writes: summary
 ```
 
-The architectural guarantee is structural, not behavioural: the reasoner's prompt template only interpolates `{clean_content}` from session state, so raw HTML cannot reach its LLM context. See it yourself in Phoenix — click the `reasoner` span and inspect the actual Gemini request.
+The architectural guarantee is structural, not behavioural: the reasoner's prompt template only reads `{clean_content}` from session state, so raw HTML cannot reach its context. See it yourself in Phoenix — click the `reasoner` span and inspect the actual Gemini request.
 
 ### Tab 2 — Pattern 3: Output Validation Pipeline
 
@@ -75,7 +81,6 @@ The tab has a scenario toggle with two modes:
 
 The executor has both tools available (`fetch_webpage` and `send_email`). The architectural guarantee isn't "the agent can't do bad things" — it's "the validator checks before the executor acts." In production, this is the layer that catches scope creep from prompt injection, confused-deputy attacks, and agent planning errors.
 
-Pattern 3's default URL is your own site (or any public article), not the local malicious page used in Pattern 2. This keeps the demo focused on **scope validation** rather than **SSRF**, which are different concerns handled by different layers.
 
 ### Patterns 1, 4, and 5 — code reference only
 
